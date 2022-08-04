@@ -1,27 +1,32 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
   <meta charset="utf-8">
-  <link rel="stylesheet" href="styles.css">
+  <link rel="stylesheet" href="index.css">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css">
 </head>
 <body>
   <h1>しりとり</h1>
-  <p id="previousWord"></p>
-  <input id="nextWordInput" type="text" />
-  <button id="nextWordSendButton">送信</button>
+  <div class="fst">
+    <p id="previousWord"></p>
+    <i class="bi bi-arrow-right-circle-fill"></i>
+    <input id="nextWordInput" type="text">
+    <button id="nextWordSendButton" class="btn btn-info" type="button">送信</button>
+  </div>
   <div id="history-container">
-    <h2>単語の履歴</h2>
-    <p>(最近使った順↓)</p>
+    <ul class="list-group" id="history">
+      <li class="list-group-item active">いままでに使った単語</li>
+    </ul>
     <ol id = "history"></ol>
   </div>
-  <p id="winCount"></p>
   <script type="module">
     let result = 0;
     window.onload = async (event) => {
       const response = await fetch("/shiritori");
       const previousWord = await response.text();
       const para = document.querySelector("#previousWord");
-      para.innerText = `前の単語：${previousWord}`;
+      para.innerText = `${previousWord}`;
     };
 
     document.querySelector("#nextWordSendButton").onclick = async (event) => {
@@ -39,11 +44,12 @@
 
       const previousWord = await response.text();
       const para = document.querySelector("#previousWord");
-      para.innerText = `前の単語：${previousWord}`;
+      para.innerText = `${previousWord}`;
       const history = document.getElementById("history"); //id(history)から要素を取得
       const list = document.createElement("li");
       list.innerText = previousWord;
-      history.prepend(list);
+      list.className = 'list-group-item'
+      history.appendChild(list);
     };
   </script>
 
