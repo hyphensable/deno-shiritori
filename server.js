@@ -30,7 +30,6 @@ serve(async (req) => {
     WordHistory.push(previousWord);
     previousWord = nextWord;
 
-
     return new Response(previousWord);
   }
 

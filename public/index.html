@@ -36,6 +36,7 @@
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ nextWord })
       });
+      document.getElementById("nextWordInput").value = '';
 
       if (response.status / 100 !== 2) {
         alert(await response.text());
