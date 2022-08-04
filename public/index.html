@@ -9,7 +9,14 @@
   <p id="previousWord"></p>
   <input id="nextWordInput" type="text" />
   <button id="nextWordSendButton">送信</button>
+  <div id="history-container">
+    <h2>単語の履歴</h2>
+    <p>(最近使った順↓)</p>
+    <ol id = "history"></ol>
+  </div>
+  <p id="winCount"></p>
   <script type="module">
+    let result = 0;
     window.onload = async (event) => {
       const response = await fetch("/shiritori");
       const previousWord = await response.text();
@@ -33,6 +40,10 @@
       const previousWord = await response.text();
       const para = document.querySelector("#previousWord");
       para.innerText = `前の単語：${previousWord}`;
+      const history = document.getElementById("history"); //id(history)から要素を取得
+      const list = document.createElement("li");
+      list.innerText = previousWord;
+      history.prepend(list);
     };
   </script>
 
